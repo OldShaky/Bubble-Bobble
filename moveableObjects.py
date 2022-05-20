@@ -12,6 +12,8 @@ class Player(object):
         self.standing = False
         self.left = False
         self.right = False
+        self.jumping = False
+        self.jumpCount = 4
         self.spriteSheetMoveLeft = spriteSheetMoveLeft
         self.spriteSheetMoveRight = spriteSheetMoveRight
         self.scaleFactor = 40
