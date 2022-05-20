@@ -9,17 +9,20 @@ screenHeight = 1000
 win = pygame.display.set_mode((screenWidth, screenHeight))
 pygame.display.set_caption("Bubblez")
 
-
 spriteSheet = spritesheet("spriteSheet645x1746.png")
-testSprite = spriteSheet.image_at((4, 14, 20, 20))
-moveRight = spriteSheet.load_strip((4, 14, 20, 20), 7)
+moveLeft = spriteSheet.load_strip((4, 15, 20, 20), 7)
+moveRight = spriteSheet.flip_strip(moveLeft)
 
 clock = pygame.time.Clock()
-player1 = moveableObjects.Player(200, 500, 20, 20, moveRight, moveRight)
+player1 = moveableObjects.Player(200, 500, 40, 40, moveLeft, moveRight)
 
 def RedrawGameWindow():
     win.fill((0, 0, 0))
     player1.draw(win)
+    c = 10
+    for i in moveLeft:
+        win.blit(pygame.transform.scale(i, (60, 60)), (c, c))
+        c += 70
     pygame.display.update()
 
 #sprites er 20x20 ish
@@ -36,12 +39,19 @@ while running:
 
     if keys[pygame.K_ESCAPE]:
         running = False
-    if keys[pygame.K_LEFT]:
+    if keys[pygame.K_LEFT] and player1.x > 5:
         player1.x -= player1.vel
         player1.left = True
-    if keys[pygame.K_RIGHT]:
+        player1.right = False
+        player1.standing = False
+    elif keys[pygame.K_RIGHT] and player1.x + player1.width + player1.vel < screenWidth:
         player1.x += player1.vel
+        player1.left = False
         player1.right = True
+        player1.standing = False
+    else:
+        player1.standing = True
+
     RedrawGameWindow()
 
 pygame.quit()

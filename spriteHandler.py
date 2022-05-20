@@ -34,4 +34,5 @@ class spritesheet(object):
         return self.images_at(tups, colorkey)
 
     # Flips a strip of images
-    def flip_strip(self, image):
+    def flip_strip(self, images):
+        return [pygame.transform.flip(image, True, False) for image in images]
