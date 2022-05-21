@@ -1,25 +1,46 @@
 import pygame
 from spriteHandler import spritesheet
 import moveableObjects
+import levelGenerator
+
 
 pygame.init()
 
-screenWidth = 1900
-screenHeight = 1000
+# generate window
+#screenWidth = len(levelGenerator.lvl1[0]) * 40 + 200
+#screenHeight = len(levelGenerator.lvl1) * 40 + 200
+screenWidth = 1200
+screenHeight = 900
+print(screenWidth)
+print(screenHeight)
 win = pygame.display.set_mode((screenWidth, screenHeight))
 pygame.display.set_caption("Bubblez")
 
+# Generete lvl tile
+tileSpriteSheet = spritesheet('tileSpriteSheet.png')
+tile1Sprite = tileSpriteSheet.image_at((52, 4, 15, 15), ) #colorkey=(0, 64, 64)
+tile1 = levelGenerator.Tile(40, 40, tile1Sprite)
+
+
+
+# generate player animations
 spriteSheet = spritesheet("spriteSheet645x1746.png")
 moveLeft = spriteSheet.images_at([(4, 15, 20, 20), (25, 15, 20, 20), (46, 15, 20, 20), (67, 15, 20, 20), (88, 15, 20, 20), (109, 15, 20, 20), (128, 15, 20, 20)], colorkey=(15, 79, 174))
 moveRight = spriteSheet.flip_strip(moveLeft)
 
 clock = pygame.time.Clock()
-player1 = moveableObjects.Player(200, 500, 40, 40, moveLeft, moveRight)
+player1 = moveableObjects.Player(900, 500, 40, 40, moveLeft, moveRight)
+
+
 
 def RedrawGameWindow():
     win.fill((0, 0, 0))
     player1.draw(win)
+    # draw lvl 1
+    levelGenerator.drawLvl(levelGenerator.lvl1, win, tile1)
+    # update display
     pygame.display.update()
+
 
 #sprites er 20x20 ish
 running = True

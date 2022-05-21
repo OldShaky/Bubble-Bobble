@@ -17,6 +17,8 @@ class Player(object):
         self.spriteSheetMoveLeft = spriteSheetMoveLeft
         self.spriteSheetMoveRight = spriteSheetMoveRight
         self.scaleFactor = 40
+        self.hitbox = (self.x, self.y, self.width, self.height)
+
 
     def draw(self, win):
         if self.walkCounter >= 21:
@@ -33,3 +35,6 @@ class Player(object):
                 win.blit(pygame.transform.scale(self.spriteSheetMoveRight[0], (self.scaleFactor, self.scaleFactor)), (self.x, self.y))
             else:
                 win.blit(pygame.transform.scale(self.spriteSheetMoveLeft[0], (self.scaleFactor, self.scaleFactor)), (self.x, self.y))
+        self.hitbox = (self.x, self.y, self.width, self.height)
+        pygame.draw.rect(win, (255, 0, 0), self.hitbox, 2)
+
