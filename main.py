@@ -81,7 +81,7 @@ while running:
 
     if keys[pygame.K_ESCAPE]:
         running = False
-    if keys[pygame.K_LEFT]:
+    if keys[pygame.K_LEFT] and not player1.jumping:
         player1.left = True
         player1.right = False
         player1.standing = False
@@ -93,7 +93,7 @@ while running:
             player1.x += 1
         else:
             player1.x -= player1.vel
-    elif keys[pygame.K_RIGHT]:
+    elif keys[pygame.K_RIGHT] and not player1.jumping:
         player1.left = False
         player1.right = True
         player1.standing = False
@@ -101,7 +101,7 @@ while running:
             player1.rayCollide = pygame.Rect.colliderect(player1.raycast, rect)
             if player1.rayCollide:
                 break
-        if player1.rayCollide and not player1.jumping:
+        if player1.rayCollide:
             player1.x -= 1
         else:
             player1.x += player1.vel
